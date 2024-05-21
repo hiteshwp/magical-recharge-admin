@@ -50,11 +50,11 @@
 				<div class="">
 
 				    <!-- CONTAINER OPEN -->
-					<!-- <div class="col col-login mx-auto">
+					<div class="col col-login mx-auto">
 						<div class="text-center">
 							<H3 style="color: #fff; font-weight: bold;">MAGICAL RECHARGE</H3>
 						</div>
-					</div> -->
+					</div>
 					<div class="container-login100">
 						<div class="wrap-login100 p-0">
 							<div class="card-body">
