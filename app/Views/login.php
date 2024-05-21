@@ -52,7 +52,7 @@
 				    <!-- CONTAINER OPEN -->
 					<div class="col col-login mx-auto">
 						<div class="text-center">
-							<H3 style="color: #fff; font-weight: bold;">MAGICAL RECHARGE PORTAL</H3>
+							<H3 style="color: #fff; font-weight: bold;">MAGICAL RECHARGE</H3>
 						</div>
 					</div>
 					<div class="container-login100">
@@ -141,10 +141,5 @@
                 });
             </script>
         <?php endif;?>
-
-		<script type="text/javascript">
-			ready
-		</script>
-
 	</body>
 </html>
