@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     let baseUrl = $("body").data("baseurl");
     $('#frmlogin').parsley();
     $("body").on("submit", "#frmlogin", function (e) {
