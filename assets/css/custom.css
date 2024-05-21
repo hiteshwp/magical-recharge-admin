@@ -1,0 +1,42 @@
+.input100
+{
+    border: 1px solid #000;
+}
+
+ul.parsley-errors-list.filled li
+{
+    color: red;
+    font-size: 14px;
+}
+.symbol-input100{
+    bottom: initial;
+    top: 15px;
+    height: auto;
+}
+
+.success b {
+    color: #ffffff !important;
+}
+
+input[type=text], input[type=email], .customselect, input[type=text]:focus, input[type=email]:focus, .customselect:focus, .select2-container, textarea
+{
+    border: 1.5px solid #6259ca !important;
+    border-radius: 0px !important;
+}
+
+.whitetext
+{
+    color: #fff !important;
+}
+.text-muted {
+    color: #000 !important;
+    font-weight: 400;
+}
+
+.side-menu__item.active {
+    background: #6710c2;
+}
+
+.page-header {
+    margin: 5px 0rem 5px;
+}
