@@ -141,10 +141,5 @@
                 });
             </script>
         <?php endif;?>
-
-		<script type="text/javascript">
-			ready
-		</script>
-
 	</body>
 </html>
