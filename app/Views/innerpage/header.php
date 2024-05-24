@@ -165,9 +165,9 @@
                                     <ul class="slide-menu">
                                         <li class="side-menu-label1"><a href="javascript:void(0)">Master Detail</a></li>
                                         <li><a href="<?php echo base_url("user/create"); ?>" class="slide-item <?php if( $controller == "\App\Controllers\UserController" && $method=="create" ){ echo "active"; } ?>"> Create User</a></li>
-                                        <li><a href="<?php echo base_url("user/list"); ?>" class="slide-item <?php if( $controller == "\App\Controllers\UserController" && $method=="list" ){ echo "active"; } ?>"> User List</a></li>
-                                        <li><a href="<?php echo base_url("user/deactive-user-list"); ?>" class="slide-item <?php if( $controller == "\App\Controllers\UserController" && $method=="deactive_user_list" ){ echo "active"; } ?>"> Deactive User</a></li>
-                                        <li><a href="javascript:void(0);" class="slide-item <?php if( $controller == "\App\Controllers\UserController" && $method=="index" ){ echo "active"; } ?>"> Staff Manage</a></li>
+                                        <li><a href="<?php echo base_url("user/list"); ?>" class="slide-item <?php if( $controller == "\App\Controllers\UserController" && $method=="index" ){ echo "active"; } ?>"> User List</a></li>
+                                        <li><a href="<?php echo base_url("user/deactive-list"); ?>" class="slide-item <?php if( $controller == "\App\Controllers\UserController" && $method=="deactive_user_list" ){ echo "active"; } ?>"> Deactive User</a></li>
+                                        <li><a href="javascript:void(0);" class="slide-item <?php if( $controller == "\App\Controllers\UserController" && $method=="staff_list" ){ echo "active"; } ?>"> Staff Manage</a></li>
                                     </ul>
                                 </li> 
                                 <li class="slide <?php if( $controller == "\App\Controllers\PaymentController" ){ echo "is-expanded"; } ?>">

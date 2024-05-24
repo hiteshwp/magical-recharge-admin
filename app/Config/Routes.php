@@ -6,6 +6,10 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
+ $routes->get('/clear-cache', function(){
+    echo command('cache:clear');
+ });
+
 $routes->get('/', 'LoginController::index');
 $routes->post('/login', 'LoginController::login');
 $routes->get('/dashboard', 'DashboardController::index');
@@ -18,5 +22,13 @@ $routes->get('/dashboard', 'DashboardController::index');
 $routes->group('user', static function ($routes) {
     $routes->get('create', 'UserController::create');
     $routes->get('list', 'UserController::index');
-    $routes->get('deactive-user-list', 'UserController::deactive_user_list');
+    $routes->get('deactive-list', 'UserController::deactive_user_list');
+    $routes->post('store-user-data', 'UserController::store_user_data');
+    $routes->post('act-get-state', 'UserController::get_state_data');
+    $routes->post('act-get-city', 'UserController::get_city_data');
+    $routes->post('get-user-list', 'UserController::get_ajax_user_list');
+    $routes->get('select/(:num)', 'UserController::select_user/$1');
+    $routes->post('update-user-data', 'UserController::update_user_data');
+    $routes->post('delete-user-info', 'UserController::delete_user_data');
+    $routes->post('get-user-deactive-list', 'UserController::get_ajax_user_deactive_list');
 });

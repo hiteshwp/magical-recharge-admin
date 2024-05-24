@@ -18,7 +18,7 @@ ul.parsley-errors-list.filled li
     color: #ffffff !important;
 }
 
-input[type=text], input[type=email], .customselect, input[type=text]:focus, input[type=email]:focus, .customselect:focus, .select2-container, textarea
+input[type=text], input[type=email], .customselect, input[type=text]:focus, input[type=email]:focus, .customselect:focus, .select2-container, textarea, select
 {
     border: 1.5px solid #6259ca !important;
     border-radius: 0px !important;
@@ -39,4 +39,13 @@ input[type=text], input[type=email], .customselect, input[type=text]:focus, inpu
 
 .page-header {
     margin: 5px 0rem 5px;
+}
+
+form select
+{
+    appearance: auto !important;
+}
+
+#back-to-top {
+    background: #6710c2;
 }
