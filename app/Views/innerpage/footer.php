@@ -33,9 +33,6 @@
         <script src="<?php echo base_url("assets/plugins/chart/Chart.bundle.js"); ?>"></script>
         <script src="<?php echo base_url("assets/plugins/chart/utils.js"); ?>"></script>
 
-        <!-- INTERNAL SELECT2 JS -->
-        <script src="<?php echo base_url("assets/plugins/select2/select2.full.min.js"); ?>"></script>
-
         <!-- BOOTSTRAP-DATERANGEPICKER JS -->
 		<script src="<?php echo base_url("assets/plugins/bootstrap-daterangepicker/moment.min.js"); ?>"></script>
 		<script src="<?php echo base_url("assets/plugins/bootstrap-daterangepicker/daterangepicker.js"); ?>"></script>
@@ -99,10 +96,6 @@
         <!-- INDEX JS -->
         <script src="<?php echo base_url("assets/js/index1.js"); ?>"></script>
 
-        <!-- Color Theme js -->
-        <script src="<?php echo base_url("assets/js/themeColors.js"); ?>"></script>
-
-		<script src="<?php echo base_url("assets/plugins/select2/select2.full.min.js"); ?>"></script>
 		<script src="<?php echo base_url("assets/js/form-elements.js"); ?>"></script>
 
         <!-- CUSTOM JS -->

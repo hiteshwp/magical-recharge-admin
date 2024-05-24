@@ -96,3 +96,11 @@ define('EVENT_PRIORITY_HIGH', 10);
 
 // Custom contants
 define('SITE_TITLE', "Magical Recharge System");
+define('USER_TYPE', array(
+    1 => 'Admin',
+    2 => 'Master Distributor',
+    3 => 'Distributor',
+    4 => 'Retailer',
+    5 => 'Staff',
+    6 => 'APIUser',
+));
