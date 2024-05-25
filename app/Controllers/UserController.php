@@ -124,7 +124,7 @@ class UserController extends BaseController
                     "user_last_name"    =>  $userModelTotalDataList["user_last_name"],
                     "user_email_address"=>  $userModelTotalDataList["user_email_address"],
                     "user_mobile_number"=>  $userModelTotalDataList["user_mobile_number"],
-                    "user_status"        =>  $status,
+                    "user_status"       =>  $status,
                 );
 
                 //$thisArr["Action"] = '<a class="btn btn-sm whitetext btn-success updateuser">Edit</a>';

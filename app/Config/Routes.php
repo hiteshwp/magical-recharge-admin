@@ -32,3 +32,11 @@ $routes->group('user', static function ($routes) {
     $routes->post('delete-user-info', 'UserController::delete_user_data');
     $routes->post('get-user-deactive-list', 'UserController::get_ajax_user_deactive_list');
 });
+
+
+$routes->group("api", ["namespace"=> "App\Controllers\Api"], function ($routes) {
+    
+    // To Registration
+    $routes->post('user-registration', 'ApiController::user_registration');
+    $routes->post('user-login', 'ApiController::user_login');
+});
