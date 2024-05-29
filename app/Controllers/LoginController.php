@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\AdminModel;
 
@@ -97,5 +98,113 @@ class LoginController extends BaseController
             "pageTitle" =>  "Forgot Password | ".SITE_TITLE,
         );
         return view('forgot_password', $pageData);
+    }
+
+    public function reset_password()
+    {
+        if( $this->request->getGet() && $this->request->getGet("rp") )
+        {
+            $userModel = new UserModel();
+            $query_string = base64_decode($this->request->getGet("rp"));
+            $query_string = json_decode($query_string, true);
+            if( isset($query_string["email_address"]) )
+            {
+                $userData = $userModel->where("user_email_address", trim($query_string["email_address"]))
+                                        ->where("user_status", "5")
+                                        ->first();
+                if( $userData )
+                {
+                    $pageData = array(
+                        "pageTitle" =>  "Reset Password | ".SITE_TITLE,
+                        "getDetails" =>  $this->request->getGet("rp"),
+                    );
+                    return view('reset_password', $pageData);
+                }
+                else
+                {
+                    return redirect()->to('/');
+                }
+            }
+            else
+            {
+                return redirect()->to('/');
+            }
+        }
+        else
+        {
+            return redirect()->to('/');
+        }
+    }
+
+    public function do_reset_password()
+    {
+        $userModel = new UserModel();
+        $encrypter = \Config\Services::encrypter();
+        $postData  = $this->request->getPost();
+        $session   = session();
+
+        if ($this->request->isAJAX()) 
+        {
+            if( isset($postData['action']) && isset($postData['txtnewpassword']) && isset($postData['requestdetails']) && $postData['action'] == "actDoResetPassword" )
+            {
+                $query_string = base64_decode($this->request->getPost("requestdetails"));
+                $query_string = json_decode($query_string, true);
+                if( isset($query_string["email_address"]) )
+                {
+                    $userData = $userModel->where("user_email_address", trim($query_string["email_address"]))
+                                            ->where("user_status", "5")
+                                            ->first();
+                    if( $userData )
+                    {
+                        $update_data = array(
+                            "user_password" => $encrypter->encrypt($postData["txtnewpassword"]),
+                            "user_status"   => "1",
+                        );
+
+                        if( $userModel->update($userData["user_id"], $update_data) )
+                        {
+                            $response = array(
+                                "status"    =>  "Success",
+                                "msg"       =>  "New password updated succesfully!.",
+                            );
+                        }                    
+                        else
+                        {
+                            $response = array(
+                                "status"    =>  "Fail",
+                                "msg"       =>  "Something went wrong.",
+                            );
+                
+                        }
+                    }   
+                    else
+                    {
+                        $response = array(
+                            "status"    =>  "Fail",
+                            "msg"       =>  "Invalid Email Address!.",
+                        );
+            
+                    } 
+                }
+                else
+                {
+                    $response = array(
+                        "status"    =>  "Fail",
+                        "msg"       =>  "Invalid url.",
+                    );
+    
+                }                    
+            }
+            else
+            {
+                $response = array(
+                    "status"    =>  "Fail",
+                    "msg"       =>  "Missing details !.",
+                );
+
+            }
+        }
+
+        echo json_encode($response); die;
     }
 }

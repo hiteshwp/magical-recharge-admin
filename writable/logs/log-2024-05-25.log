@@ -1,2 +1,46 @@
 INFO - 2024-05-25 03:26:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2024-05-25 03:26:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-05-25 03:54:05 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'u294153684_magical_rcrg'@'localhost' (using password: YES) in D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'u294153684_magi...', '3Eh?f0Q=9:', 'u294153684_magi...', 3306, '', 0)
+#1 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Model.php(271): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\BaseModel.php(679): CodeIgniter\Model->doFirst()
+#6 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\app\Controllers\Api\ApiController.php(84): CodeIgniter\BaseModel->first()
+#7 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(943): App\Controllers\Api\ApiController->user_login()
+#8 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\ApiController))
+#9 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Model.php(271): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\BaseModel.php(679): CodeIgniter\Model->doFirst()
+#5 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\app\Controllers\Api\ApiController.php(84): CodeIgniter\BaseModel->first()
+#6 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(943): App\Controllers\Api\ApiController->user_login()
+#7 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\ApiController))
+#8 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2024-05-25 03:54:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+in SYSTEMPATH\Database\BaseConnection.php on line 428.
+ 1 SYSTEMPATH\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tbl_user`
+WHERE `user_email_address` = :user_email_address:
+AND `user_status` = :user_status:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(271): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Controllers\Api\ApiController.php(84): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH\CodeIgniter.php(943): App\Controllers\Api\ApiController->user_login()
+ 7 SYSTEMPATH\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\ApiController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
