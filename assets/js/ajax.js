@@ -3,7 +3,6 @@ $(document).ready(function() {
     $('#frmlogin').parsley();
     $("body").on("submit", "#frmlogin", function (e) {
         e.preventDefault();
-
         if($('#frmlogin').parsley().isValid())
         {
             $.ajax({  

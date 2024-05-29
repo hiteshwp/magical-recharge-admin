@@ -1,0 +1,84 @@
+ERROR - 2024-05-28 11:56:26 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'u294153684_magical_rcrg'@'localhost' (using password: YES) in D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'u294153684_magi...', '3Eh?f0Q=9:', 'u294153684_magi...', 3306, '', 0)
+#1 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Model.php(271): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\BaseModel.php(679): CodeIgniter\Model->doFirst()
+#6 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\app\Controllers\Api\ApiController.php(154): CodeIgniter\BaseModel->first()
+#7 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(943): App\Controllers\Api\ApiController->forgot_password()
+#8 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\ApiController))
+#9 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\Model.php(271): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\BaseModel.php(679): CodeIgniter\Model->doFirst()
+#5 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\app\Controllers\Api\ApiController.php(154): CodeIgniter\BaseModel->first()
+#6 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(943): App\Controllers\Api\ApiController->forgot_password()
+#7 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\ApiController))
+#8 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\vendor\codeigniter4\framework\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\xampp\htdocs\hitesh\ci\magical-recharge-admin\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2024-05-28 11:56:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+in SYSTEMPATH\Database\BaseConnection.php on line 428.
+ 1 SYSTEMPATH\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `tbl_user`
+WHERE `user_email_address` = :user_email_address:
+AND `user_status` = :user_status:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(271): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(679): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Controllers\Api\ApiController.php(154): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH\CodeIgniter.php(943): App\Controllers\Api\ApiController->forgot_password()
+ 7 SYSTEMPATH\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\ApiController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-05-28 12:29:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-28 12:43:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-28 12:44:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-05-28 12:44:27 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reset_password.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reset_password.php')
+ 2 SYSTEMPATH\Common.php(1178): CodeIgniter\View\View->render('reset_password', [], true)
+ 3 APPPATH\Controllers\LoginController.php(107): view('reset_password', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(943): App\Controllers\LoginController->reset_password()
+ 5 SYSTEMPATH\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-05-28 12:45:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-28 12:46:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-28 12:46:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-28 12:50:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-28 12:51:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-28 12:52:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-05-28 12:52:16 --> Error: Call to undefined method CodeIgniter\HTTP\IncomingRequest::getquery()
+in APPPATH\Controllers\LoginController.php on line 105.
+ 1 SYSTEMPATH\CodeIgniter.php(943): App\Controllers\LoginController->reset_password()
+ 2 SYSTEMPATH\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-05-28 12:52:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-05-28 12:52:24 --> Error: Call to undefined method CodeIgniter\HTTP\IncomingRequest::getQuery()
+in APPPATH\Controllers\LoginController.php on line 105.
+ 1 SYSTEMPATH\CodeIgniter.php(943): App\Controllers\LoginController->reset_password()
+ 2 SYSTEMPATH\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-05-28 12:52:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-05-28 12:52:25 --> Error: Call to undefined method CodeIgniter\HTTP\IncomingRequest::getQuery()
+in APPPATH\Controllers\LoginController.php on line 105.
+ 1 SYSTEMPATH\CodeIgniter.php(943): App\Controllers\LoginController->reset_password()
+ 2 SYSTEMPATH\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2024-05-28 12:54:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-05-28 12:55:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

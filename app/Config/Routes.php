@@ -6,20 +6,25 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
- $routes->get('/clear-cache', function(){
+$routes->set404Override(function(){
+    return view('404');
+});
+//$routes->setAutoRoute(true);
+
+$routes->get('/clear-cache', function(){
     echo command('cache:clear');
- });
+});
 
 $routes->get('/', 'LoginController::index');
 $routes->post('/login', 'LoginController::login');
 $routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/logout', 'DashboardController::logout');
 $routes->get('/forgot-password', 'LoginController::forgot_password');
-
-$routes->get('/dashboard', 'DashboardController::index');
+$routes->get('/reset-password', 'LoginController::reset_password');
+$routes->post('/reset-password', 'LoginController::do_reset_password');
 
 // User Management
-$routes->group('user', static function ($routes) {
+$routes->group('user', ["namespace"=> "App\Controllers\Api"], function ($routes) {
     $routes->get('create', 'UserController::create');
     $routes->get('list', 'UserController::index');
     $routes->get('deactive-list', 'UserController::deactive_user_list');
@@ -39,4 +44,5 @@ $routes->group("api", ["namespace"=> "App\Controllers\Api"], function ($routes) 
     // To Registration
     $routes->post('user-registration', 'ApiController::user_registration');
     $routes->post('user-login', 'ApiController::user_login');
+    $routes->post('forgot-password', 'ApiController::forgot_password');
 });
