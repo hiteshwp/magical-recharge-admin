@@ -24,7 +24,7 @@ $routes->get('/reset-password', 'LoginController::reset_password');
 $routes->post('/reset-password', 'LoginController::do_reset_password');
 
 // User Management
-$routes->group('user', ["namespace"=> "App\Controllers\Api"], function ($routes) {
+$routes->group('user', function ($routes) {
     $routes->get('create', 'UserController::create');
     $routes->get('list', 'UserController::index');
     $routes->get('deactive-list', 'UserController::deactive_user_list');
