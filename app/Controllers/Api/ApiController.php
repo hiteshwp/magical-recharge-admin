@@ -11,12 +11,11 @@ class ApiController extends ResourceController
     // POST
     public function user_registration()
     {
+        //echo "<pre>"; print_r($this->request->getVar()); die;
         $encrypter = \Config\Services::encrypter();
         $rules = [
-            "first_name"    => "required",
-            "last_name"     => "required",
-            "email_address" => "required|valid_email|is_unique[tbl_user.user_email_address]",
-            "mobile_number" => "required",
+            "full_name"     => "required",
+            "mobile_number" => "required|is_unique[tbl_user.user_mobile_number]",
             "password"      => "required",
         ];
 
@@ -32,11 +31,10 @@ class ApiController extends ResourceController
         {
             $user_model_data = new UserModel();
             $data = [
-                "user_first_name"       =>  $this->request->getVar("first_name"),
-                "user_last_name"        =>  $this->request->getVar("last_name"),
-                "user_email_address"    =>  $this->request->getVar("email_address"),
+                "user_full_name"        =>  $this->request->getVar("full_name"),
                 "user_mobile_number"    =>  $this->request->getVar("mobile_number"),
                 "user_password"         =>  $encrypter->encrypt($this->request->getVar("password")),
+                "user_referral_by"      =>  $this->request->getVar("user_referral_by"),
             ];
 
             if( $user_model_data->insert($data) )
@@ -64,7 +62,7 @@ class ApiController extends ResourceController
     {
         $encrypter = \Config\Services::encrypter();
         $rules = [
-            "email_address" => "required|valid_email",
+            "mobile_number" => "required",
             "password"      => "required",
         ];
 
@@ -79,7 +77,7 @@ class ApiController extends ResourceController
         else
         {
             $userModel = new UserModel();
-            $loginData = $userModel->where("user_email_address", trim($this->request->getVar("email_address")))
+            $loginData = $userModel->where("user_mobile_number", trim($this->request->getVar("mobile_number")))
                                     ->where("user_status", "1")
                                     ->first();
             if( $loginData )
@@ -96,7 +94,10 @@ class ApiController extends ResourceController
                             "status"    =>  true,
                             "message"   =>  "User login successfully",
                             "data"      =>  [
-                                "user_id"   => $loginData["user_id"],
+                                "user_id"               => $loginData["user_id"],
+                                "user_full_name"        => $loginData["user_full_name"],
+                                "user_mobile_number"    => $loginData["user_mobile_number"],
+                                "user_referral_by"      => $loginData["user_referral_by"],
                                 "token"     => $token
                             ]
                         ];
