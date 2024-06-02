@@ -206,8 +206,8 @@ class ApiController extends ResourceController
         return $this->respondCreated( $response ); 
     }
 
-    public function reset_password()
-    {
-        echo "Hello"; die;
-    }
+    // public function reset_password()
+    // {
+    //     echo "Hello"; die;
+    // }
 }
