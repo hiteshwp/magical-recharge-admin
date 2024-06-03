@@ -13,7 +13,7 @@
                             <div class="table-responsive export-table">
                                 <table id="user-datatable-list" class="table table-bordered text-nowrap key-buttons border-bottom  w-100" data-tn="<?php echo csrf_token(); ?>" data-tnv="<?php echo csrf_hash(); ?>">
                                     <thead>
-                                        <tr>
+                                        <!-- <tr>
                                             <th class="border-bottom-0">#ID</th>
                                             <th class="border-bottom-0">User Type</th>
                                             <th class="border-bottom-0">Shop Name</th>
@@ -21,6 +21,15 @@
                                             <th class="border-bottom-0">Last Name</th>
                                             <th class="border-bottom-0">Email Address</th>
                                             <th class="border-bottom-0">Mobile Number</th>
+                                            <th class="border-bottom-0">Status</th>
+                                            <th class="border-bottom-0">Action</th>
+                                        </tr> -->
+                                        <tr>
+                                            <th class="border-bottom-0">#ID</th>
+                                            <th class="border-bottom-0">User Type</th>
+                                            <th class="border-bottom-0">Full Name</th>
+                                            <th class="border-bottom-0">Mobile Number</th>
+                                            <th class="border-bottom-0">User Referral By</th>
                                             <th class="border-bottom-0">Status</th>
                                             <th class="border-bottom-0">Action</th>
                                         </tr>
