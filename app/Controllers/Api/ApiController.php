@@ -136,7 +136,7 @@ class ApiController extends ResourceController
     public function forgot_password()
     {
         $rules = [
-            "email_address" => "required|valid_email",
+            "mobile_number" => "required",
         ];
 
         if( ! $this->validate($rules) )
@@ -150,54 +150,43 @@ class ApiController extends ResourceController
         else
         {
             $userModel = new UserModel();
-            $loginData = $userModel->where("user_email_address", trim($this->request->getVar("email_address")))
+            $loginData = $userModel->where("user_mobile_number", trim($this->request->getVar("mobile_number")))
                                     ->where("user_status!=", "0")
                                     ->first();
             if( $loginData )
             {
-                $email = \Config\Services::email();
-
-                $email->setFrom('wp@stagingurlhub.in', 'Hitesh Prajapati');
-                $email->setTo($this->request->getVar("email_address"));
-
-                $encode_code = array(
-                    "email_address"     => $this->request->getVar("email_address")
-                );
-
                 $updated_data = array(
                     "user_status"   => "5"
                 );
 
-                $encode_code = json_encode($encode_code);
-                $encode_code = base64_encode($encode_code);
-                $url = base_url("reset-password/?rp=".$encode_code);
-
-                $html = "";
-                $html .= "<h3>Reset your password?</h3>";
-                $html .= "<p>We've received a request to set a new password for this Email Account:</p>";
-                $html .= "<p><b>".$this->request->getVar("email_address")."</b></p><br>";
-                $html .= "<a href='".$url."' style='padding:5px 10px; background-color:#6710c2 !important; color:#fff !important; text-decoration:none;'>Set Password</a><br><br>";
-                $html .= "<p>If you didn't request this, you can safely ignore this email.</p>";
-
-                $email->setSubject('Reset Password - '.SITE_TITLE);
-                $email->setMessage($html);
-
                 if( $userModel->update($loginData["user_id"], $updated_data) )
                 {
-                    $email->send();
+                    $response = [
+                        "status"    =>  true,
+                        "message"   =>  "Mobile number exist",
+                        "data"      =>  [
+                            "user_id"               => $loginData["user_id"],
+                            "user_full_name"        => $loginData["user_full_name"],
+                            "user_mobile_number"    => $loginData["user_mobile_number"],
+                            "user_referral_by"      => $loginData["user_referral_by"],
+                        ]
+                    ];
+                }
+                else
+                {
+                    $response = [
+                        "status"    =>  false,
+                        "message"   =>  "Invalid mobile number",
+                        "data"      =>  []
+                    ];
                 }
 
-                $response = [
-                    "status"    =>  true,
-                    "message"   =>  "Password reset link send to your registered email address.",
-                    "data"      =>  []
-                ];
             }
             else
             {
                 $response = [
                     "status"    =>  false,
-                    "message"   =>  "Invalid email address",
+                    "message"   =>  "Invalid mobile number",
                     "data"      =>  []
                 ];
             }
@@ -206,8 +195,67 @@ class ApiController extends ResourceController
         return $this->respondCreated( $response ); 
     }
 
-    // public function reset_password()
-    // {
-    //     echo "Hello"; die;
-    // }
+    public function new_password()
+    {
+        $encrypter = \Config\Services::encrypter();
+        $rules = [
+            "user_id"       => "required",
+            "new_password"  => "required",
+        ];
+
+        if( ! $this->validate($rules) )
+        {
+            $response = [
+                "status"    =>  false,
+                "message"   =>  $this->validator->getErrors(),
+                "data"      =>  []
+            ];
+        }
+        else
+        {
+            $userModel = new UserModel();
+            $loginData = $userModel->where("user_id", trim($this->request->getVar("user_id")))
+                                    ->where("user_status!=", "0")
+                                    ->first();
+            if( $loginData )
+            {
+                $updated_data = array(
+                    "user_password"  =>  $encrypter->encrypt($this->request->getVar("new_password")),
+                );
+
+                if( $userModel->update($loginData["user_id"], $updated_data) )
+                {
+                    $response = [
+                        "status"    =>  true,
+                        "message"   =>  "Password updated successfully",
+                        "data"      =>  [
+                            "user_id"               => $loginData["user_id"],
+                            "user_full_name"        => $loginData["user_full_name"],
+                            "user_mobile_number"    => $loginData["user_mobile_number"],
+                            "user_referral_by"      => $loginData["user_referral_by"],
+                        ]
+                    ];
+                }
+                else
+                {
+                    $response = [
+                        "status"    =>  false,
+                        "message"   =>  "Invalid details",
+                        "data"      =>  []
+                    ];
+                }
+
+            }
+            else
+            {
+                $response = [
+                    "status"    =>  false,
+                    "message"   =>  "Invalid details",
+                    "data"      =>  []
+                ];
+            }
+        }
+
+        return $this->respondCreated( $response ); 
+    }
 }
