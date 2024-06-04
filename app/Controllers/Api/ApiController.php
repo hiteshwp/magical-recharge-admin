@@ -215,12 +215,13 @@ class ApiController extends ResourceController
         {
             $userModel = new UserModel();
             $loginData = $userModel->where("user_id", trim($this->request->getVar("user_id")))
-                                    ->where("user_status!=", "0")
+                                    ->where("user_status", "5")
                                     ->first();
             if( $loginData )
             {
                 $updated_data = array(
                     "user_password"  =>  $encrypter->encrypt($this->request->getVar("new_password")),
+                    "user_status"   => "1"
                 );
 
                 if( $userModel->update($loginData["user_id"], $updated_data) )
