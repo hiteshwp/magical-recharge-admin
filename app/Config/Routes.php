@@ -45,4 +45,5 @@ $routes->group("api", ["namespace"=> "App\Controllers\Api"], function ($routes) 
     $routes->post('user-registration', 'ApiController::user_registration');
     $routes->post('user-login', 'ApiController::user_login');
     $routes->post('forgot-password', 'ApiController::forgot_password');
+    $routes->post('new-password', 'ApiController::new_password');
 });
