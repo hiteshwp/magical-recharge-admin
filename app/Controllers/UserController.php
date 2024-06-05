@@ -71,9 +71,9 @@ class UserController extends BaseController
             }
         }
 
-        $userModelTotalData = $userModel->where("user_status", "1")
+        $userModelTotalData = $userModel->where("user_status != ", "0")
                                         ->findAll();
-        $userModelData      = $userModel->where("user_status", "1")
+        $userModelData      = $userModel->where("user_status != ", "0")
                                         ->orderBy($order, $orderBy)
                                         ->findAll($rowperpage, $start);   
                        
@@ -82,7 +82,7 @@ class UserController extends BaseController
             $search = $_POST["search"]["value"];
 
             $userModelData = $userModel->like("user_shop_name", $search)
-                                        ->where("user_status", "1")
+                                        ->where("user_status != ", "0")
                                         ->orderBy($order, $orderBy)
                                         ->findAll($rowperpage, $start);
         }
@@ -493,7 +493,7 @@ class UserController extends BaseController
 
                 //$thisArr["Action"] = '<a class="btn btn-sm whitetext btn-success updateuser">Edit</a>';
                 $thisArr["Action"] = '<a href="'.base_url().'user/select/'.$userModelTotalDataList["user_id"].'" class="btn btn-sm whitetext btn-success updateuser">Edit</a>';
-                if( $userModelTotalDataList["user_status"] != 2 )
+                if( $userModelTotalDataList["user_status"] != "2" )
                 {
                     $thisArr["Action"] .= ' <a class="btn btn-danger btn-sm whitetext deleteuser" data-user-id="'.$userModelTotalDataList["user_id"].'" title="Delete Record" >Delete</a>';
                 }
