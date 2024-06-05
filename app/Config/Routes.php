@@ -42,6 +42,7 @@ $routes->group('user', function ($routes) {
 $routes->group("api", ["namespace"=> "App\Controllers\Api"], function ($routes) {
     
     // To Registration
+    $routes->post('verify-mobile-number', 'ApiController::verify_mobile_number');
     $routes->post('user-registration', 'ApiController::user_registration');
     $routes->post('user-login', 'ApiController::user_login');
     $routes->post('forgot-password', 'ApiController::forgot_password');

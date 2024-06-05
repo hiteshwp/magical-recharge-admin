@@ -9,6 +9,47 @@ use App\Models\UserModel;
 class ApiController extends ResourceController
 {
     // POST
+    public function verify_mobile_number()
+    {
+        $rules = [
+            "mobile_number" => "required",
+        ];
+
+        if( ! $this->validate($rules) )
+        {
+            $response = [
+                "status"    =>  false,
+                "message"   =>  $this->validator->getErrors(),
+            ];
+        }
+        else
+        {
+            $userModel = new UserModel();
+            $loginData = $userModel->where("user_mobile_number", trim($this->request->getVar("mobile_number")))
+                                    ->where("user_status != ", "0")
+                                    ->first();
+            if( ! $loginData )
+            {
+                $mobile_otp = rand(111111, 999999);
+                $response = [
+                    "status"    =>  true,
+                    "message"   =>  "Mobile number available",
+                    "data"      =>  [
+                        "mobile_otp"            => $mobile_otp,
+                    ]
+                ];
+            }
+            else
+            {
+                $response = [
+                    "status"    =>  false,
+                    "message"   =>  "Mobile number already registered",
+                ];
+            }
+        }
+
+        return $this->respondCreated( $response ); 
+    }
     public function user_registration()
     {
         //echo "<pre>"; print_r($this->request->getVar()); die;
@@ -24,7 +65,6 @@ class ApiController extends ResourceController
             $response = [
                 "status"    =>  false,
                 "message"   =>  $this->validator->getErrors(),
-                "data"      =>  []
             ];
         }
         else
@@ -39,10 +79,24 @@ class ApiController extends ResourceController
 
             if( $user_model_data->insert($data) )
             {
+                $lastInsertId = $user_model_data->getInsertID();
+
+                $userData = $user_model_data->where("user_id", $lastInsertId)
+                                            ->where("user_status", "1")
+                                            ->first();
+
+                $token = $this->get_token();
+
                 $response = [
                     "status"    =>  true,
                     "message"   =>  "User registration successfully",
-                    "data"      =>  []
+                    "data"      =>  [
+                        "user_id"               => $userData["user_id"],
+                        "user_full_name"        => $userData["user_full_name"],
+                        "user_mobile_number"    => $userData["user_mobile_number"],
+                        "user_referral_by"      => $userData["user_referral_by"],
+                        "token"                 => $token
+                    ]
                 ];
             }
             else
@@ -50,7 +104,6 @@ class ApiController extends ResourceController
                 $response = [
                     "status"    =>  false,
                     "message"   =>  "Failed to user registreation",
-                    "data"      =>  []
                 ];
             }
         }
@@ -71,14 +124,13 @@ class ApiController extends ResourceController
             $response = [
                 "status"    =>  false,
                 "message"   =>  $this->validator->getErrors(),
-                "data"      =>  []
             ];
         }
         else
         {
             $userModel = new UserModel();
             $loginData = $userModel->where("user_mobile_number", trim($this->request->getVar("mobile_number")))
-                                    ->where("user_status", "1")
+                                    ->where("user_status != ", "0")
                                     ->first();
             if( $loginData )
             {
@@ -98,7 +150,8 @@ class ApiController extends ResourceController
                                 "user_full_name"        => $loginData["user_full_name"],
                                 "user_mobile_number"    => $loginData["user_mobile_number"],
                                 "user_referral_by"      => $loginData["user_referral_by"],
-                                "token"     => $token
+                                "user_status"           => $loginData["user_status"],
+                                "token"                 => $token
                             ]
                         ];
                     }
@@ -108,7 +161,6 @@ class ApiController extends ResourceController
                     $response = [
                         "status"    =>  false,
                         "message"   =>  "Invalid login credentials",
-                        "data"      =>  []
                     ];
                 }
             }
@@ -117,7 +169,6 @@ class ApiController extends ResourceController
                 $response = [
                     "status"    =>  false,
                     "message"   =>  "Invalid login credentials",
-                    "data"      =>  []
                 ];
             }
         }
@@ -144,7 +195,6 @@ class ApiController extends ResourceController
             $response = [
                 "status"    =>  false,
                 "message"   =>  $this->validator->getErrors(),
-                "data"      =>  []
             ];
         }
         else
@@ -169,6 +219,7 @@ class ApiController extends ResourceController
                             "user_full_name"        => $loginData["user_full_name"],
                             "user_mobile_number"    => $loginData["user_mobile_number"],
                             "user_referral_by"      => $loginData["user_referral_by"],
+                            "user_status"           => $loginData["user_status"],
                         ]
                     ];
                 }
@@ -177,7 +228,6 @@ class ApiController extends ResourceController
                     $response = [
                         "status"    =>  false,
                         "message"   =>  "Invalid mobile number",
-                        "data"      =>  []
                     ];
                 }
 
@@ -187,7 +237,6 @@ class ApiController extends ResourceController
                 $response = [
                     "status"    =>  false,
                     "message"   =>  "Invalid mobile number",
-                    "data"      =>  []
                 ];
             }
         }
@@ -208,7 +257,6 @@ class ApiController extends ResourceController
             $response = [
                 "status"    =>  false,
                 "message"   =>  $this->validator->getErrors(),
-                "data"      =>  []
             ];
         }
         else
@@ -234,6 +282,7 @@ class ApiController extends ResourceController
                             "user_full_name"        => $loginData["user_full_name"],
                             "user_mobile_number"    => $loginData["user_mobile_number"],
                             "user_referral_by"      => $loginData["user_referral_by"],
+                            "user_status"           => $loginData["user_status"],
                         ]
                     ];
                 }
@@ -242,7 +291,6 @@ class ApiController extends ResourceController
                     $response = [
                         "status"    =>  false,
                         "message"   =>  "Invalid details",
-                        "data"      =>  []
                     ];
                 }
 
@@ -252,7 +300,6 @@ class ApiController extends ResourceController
                 $response = [
                     "status"    =>  false,
                     "message"   =>  "Invalid details",
-                    "data"      =>  []
                 ];
             }
         }
