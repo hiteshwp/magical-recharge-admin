@@ -20,7 +20,6 @@ class UserController extends BaseController
             $session = session();
             header("Location: ".base_url("/"));
             die;
-            
         }
     }
     public function index()
