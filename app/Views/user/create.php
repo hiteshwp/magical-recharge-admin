@@ -51,7 +51,7 @@
                                             <label class="form-label"> User Status</label>
                                             <select class="form-control txtstatus" name="txtstatus" required>
                                                 <option value="">Select Status</option>
-                                                <option value="1" <?php if(@$user_model_data["user_status"] == "4"){ echo "selected"; } ?> selected>Active</option>
+                                                <option value="4" <?php if(@$user_model_data["user_status"] == "4"){ echo "selected"; } ?> selected>Active</option>
                                                 <option value="2" <?php if(@$user_model_data["user_status"] == "0"){ echo "selected"; } ?>>Delete</option>
                                                 <option value="0" <?php if(@$user_model_data["user_status"] == "5"){ echo "selected"; } ?>>Deactive</option>
                                             </select>

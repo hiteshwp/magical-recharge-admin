@@ -150,6 +150,7 @@ class UserController extends BaseController
         $request   = service('request');
         $postData  = $request->getPost();
         $user_model = new UserModel();
+        $encrypter = \Config\Services::encrypter();
         
         if( $postData["action_type"] == "act_store_user_data")
         {
@@ -165,12 +166,13 @@ class UserController extends BaseController
             else
             {  
                 $insertdata = array(
-                        'user_type'                         =>  $postData["txtusertype"],
-                        'user_full_name'                    =>  $postData["txtuserfullname"],
-                        'user_mobile_number'                =>  $postData["txtphonenumber"],
-                        'user_referral_by'                  =>  $postData["txtreferralby"],
-                        'created_at'                        =>  date("Y-m-d H:i:s"),
-                        'user_status'                       =>  $postData["txtstatus"],
+                        'user_type'          =>  $postData["txtusertype"],
+                        'user_full_name'     =>  $postData["txtuserfullname"],
+                        'user_mobile_number' =>  $postData["txtphonenumber"],
+                        'user_referral_by'   =>  $postData["txtreferralby"],
+                        "user_password"      =>  $encrypter->encrypt("User@@@123"),
+                        'created_at'         =>  date("Y-m-d H:i:s"),
+                        'user_status'        =>  $postData["txtstatus"],
                 );
 
                 if($user_model->insert($insertdata))
