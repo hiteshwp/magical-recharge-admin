@@ -99,6 +99,10 @@ class UserController extends BaseController
                 { 
                     $status = '<span class="badge bg-warning me-1 mb-1 mt-1">Deactive</span>'; 
                 }
+                else if($userModelTotalDataList["user_status"] == 4)
+                { 
+                    $status = '<span class="badge bg-success me-1 mb-1 mt-1">Active</span>'; 
+                }
                 else
                 { 
                     $status = '<span class="badge bg-danger me-1 mb-1 mt-1">Delete</span>'; 
