@@ -512,8 +512,4 @@ class UserController extends BaseController
         );  
         echo json_encode($output);
     }
-    public function staff_list()
-    {
-
-    }
 }
