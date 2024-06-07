@@ -17,7 +17,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label"> Select User Type</label>
-                                            <select class="form-control" name="txtusertype" required>
+                                            <select class="form-control" name="txtusertype" required data-parsley-required-message="User Type field is required">
                                                 <option value="">Select User Type</option>
                                                 <?php
                                                     foreach( USER_TYPE as $key => $value ) 
@@ -31,25 +31,25 @@
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <label class="form-label"> User Full Name</label>
-                                            <input type="text" class="form-control" name="txtuserfullname" placeholder="Enter user full name" required>
+                                            <input type="text" class="form-control" name="txtuserfullname" placeholder="Enter user full name" required data-parsley-required-message="User Full Name field is required">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label"> Phone Number</label>
-                                            <input type="text" class="form-control" name="txtphonenumber" placeholder="Enter phone number" required>
+                                            <input type="text" class="form-control" name="txtphonenumber" placeholder="Enter phone number" data-parsley-required-message="Phone Number field is required" data-parsley-type="digits" data-parsley-type-message="Contact Number should be in digits" data-parsley-minlength="10" data-parsley-maxlength="10" data-parsley-minlength-message="Contact Number should be in 10 digits" data-parsley-maxlength-message="Contact Number should be in 10 digits" required>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label"> Referral By</label>
-                                            <input type="text" class="form-control" name="txtreferralby" placeholder="Enter referral by mobilenumber" required>
+                                            <input type="text" class="form-control" name="txtreferralby" placeholder="Enter referral by mobilenumber" required data-parsley-required-message="User Referral By field is required">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label"> User Status</label>
-                                            <select class="form-control txtstatus" name="txtstatus" required>
+                                            <select class="form-control txtstatus" name="txtstatus" required data-parsley-required-message="User Status field is required">
                                                 <option value="">Select Status</option>
                                                 <option value="4" <?php if(@$user_model_data["user_status"] == "4"){ echo "selected"; } ?> selected>Active</option>
                                                 <option value="2" <?php if(@$user_model_data["user_status"] == "0"){ echo "selected"; } ?>>Delete</option>

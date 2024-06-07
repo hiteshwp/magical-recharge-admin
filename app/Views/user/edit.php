@@ -17,7 +17,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="form-label"> Select User Type</label>
-                                            <select class="form-control" name="txtusertype" required>
+                                            <select class="form-control" name="txtusertype" required data-parsley-required-message="User Type field is required">
                                                 <option value="">Select User Type</option>
                                                 <?php
                                                     foreach( USER_TYPE as $key => $value ) 
@@ -33,25 +33,25 @@
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <label class="form-label"> User Full Name</label>
-                                            <input type="text" class="form-control" name="txtuserfullname" placeholder="Enter user full name" required value="<?php echo @$user_model_data["user_full_name"]; ?>">
+                                            <input type="text" class="form-control" name="txtuserfullname" placeholder="Enter user full name" required value="<?php echo @$user_model_data["user_full_name"]; ?>" data-parsley-required-message="User Full Name field is required">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label"> Phone Number</label>
-                                            <input type="text" class="form-control" name="txtphonenumber" placeholder="Enter phone number" required value="<?php echo @$user_model_data["user_mobile_number"]; ?>">
+                                            <input type="text" class="form-control" name="txtphonenumber" placeholder="Enter phone number" required value="<?php echo @$user_model_data["user_mobile_number"]; ?>"  data-parsley-required-message="Phone Number field is required" data-parsley-type="digits" data-parsley-type-message="Contact Number should be in digits" data-parsley-minlength="10" data-parsley-maxlength="10" data-parsley-minlength-message="Contact Number should be in 10 digits" data-parsley-maxlength-message="Contact Number should be in 10 digits">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label"> Referral By</label>
-                                            <input type="text" class="form-control" name="txtreferralby" placeholder="Enter referral by" required value="<?php echo @$user_model_data["user_referral_by"]; ?>">
+                                            <input type="text" class="form-control" name="txtreferralby" placeholder="Enter referral by" required value="<?php echo @$user_model_data["user_referral_by"]; ?>" data-parsley-required-message="Referral By field is required">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label"> User Status</label>
-                                            <select class="form-control txtstatus" name="txtstatus" required>
+                                            <select class="form-control txtstatus" name="txtstatus" required data-parsley-required-message="User Status field is required">
                                                 <option value="">Select Status</option>
                                                 <option value="4" <?php if(@$user_model_data["user_status"] == "1"){ echo "selected"; } ?> selected>Active</option>
                                                 <option value="2" <?php if(@$user_model_data["user_status"] == "2"){ echo "selected"; } ?>>Delete</option>
