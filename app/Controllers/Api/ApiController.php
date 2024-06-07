@@ -263,7 +263,8 @@ class ApiController extends ResourceController
         {
             $userModel = new UserModel();
             $loginData = $userModel->where("user_id", trim($this->request->getVar("user_id")))
-                                    ->where("user_status", "5")
+                                    ->where("user_status", "4")
+                                    ->or_where("user_status", "5")
                                     ->first();
             if( $loginData )
             {
