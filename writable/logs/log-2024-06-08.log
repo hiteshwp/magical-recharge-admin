@@ -1,0 +1,6 @@
+CRITICAL - 2024-06-08 11:40:37 --> Error: Undefined constant "App\Controllers\Api\updated_data"
+in APPPATH\Controllers\Api\ApiController.php on line 355.
+ 1 SYSTEMPATH\CodeIgniter.php(943): App\Controllers\Api\ApiController->edit_profile()
+ 2 SYSTEMPATH\CodeIgniter.php(503): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Api\ApiController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

@@ -307,4 +307,93 @@ class ApiController extends ResourceController
 
         return $this->respondCreated( $response ); 
     }
+
+    public function edit_profile()
+    {
+        // echo "<pre>"; print_r($this->request->getFile("user_image"));
+        // print_r($this->request->getVar()); die;
+        $rules = [
+            "user_id"      => "required",
+            "full_name"    => "required",
+        ];
+
+        if( $this->request->getFile("user_image") )
+        {
+            $rules["user_image"] = "max_size[user_image,1024]|is_image[user_image]|mime_in[user_image,image/png,image/jpeg]";
+        }
+
+        if( ! $this->validate($rules) )
+        {
+            $response = [
+                "status"    =>  false,
+                "message"   =>  $this->validator->getErrors(),
+            ];
+        }
+        else
+        {
+            $userModel = new UserModel();
+            $checkUserData = $userModel->where("user_id", trim($this->request->getVar("user_id")))
+                                    ->first();
+            if( $checkUserData )
+            {
+                $updated_data = array(
+                    "user_full_name"    =>  $this->request->getVar("full_name"),
+                    "user_bio"          =>  $this->request->getVar("user_bio"),
+                    "user_status"       => "1"
+                );
+
+                if( $this->request->getFile("user_image") )
+                {
+                    $userImage = $this->request->getFile('user_image');
+                    if (! $userImage->hasMoved()) 
+                    {
+                        $name       =   $userImage->getName();
+                        $ext        =   $userImage->getClientExtension();
+                        $newname    =   $userImage->getRandomName();
+
+                        if( $userImage->move("profileimage", $newname) )
+                        {
+                            $updated_data['user_image'] = $newname;
+                        }
+                    }
+                }
+
+                if( $userModel->update($checkUserData["user_id"], $updated_data) )
+                {
+                    $getUserData = $userModel->where("user_id", trim($this->request->getVar("user_id")))
+                                                ->first();
+                    $response = [
+                        "status"    =>  true,
+                        "message"   =>  "Profile updated successfully",
+                        "data"      =>  [
+                            "user_id"               => $getUserData["user_id"],
+                            "user_full_name"        => $getUserData["user_full_name"],
+                            "user_mobile_number"    => $getUserData["user_mobile_number"],
+                            "user_referral_by"      => $getUserData["user_referral_by"],
+                            "user_image"            => base_url()."/profileimage/". $getUserData["user_image"],
+                            "user_bio"              => $getUserData["user_bio"],
+                            "user_status"           => $getUserData["user_status"],
+                        ]
+                    ];
+                }
+                else
+                {
+                    $response = [
+                        "status"    =>  false,
+                        "message"   =>  "Invalid details",
+                    ];
+                }
+
+            }
+            else
+            {
+                $response = [
+                    "status"    =>  false,
+                    "message"   =>  "Invalid details",
+                ];
+            }
+        }
+
+        return $this->respondCreated( $response ); 
+    }
 }
