@@ -35,4 +35,14 @@ class DashboardController extends BaseController
         $session->setFlashdata('logout-success', 'You have successfully Logout!.');
         return redirect()->to('/');
     }
+
+    public function my_profile()
+    {
+        $pageData = array(
+            "pageTitle"     =>  "My Profile | ".SITE_TITLE,
+            "title"         =>  "My Profile",
+            "main_content"  =>  "my_profile",
+        );
+        return view('/innerpage/template', $pageData);
+    }
 }
