@@ -158,7 +158,7 @@
                                     <h3>&nbsp;</h3>
                                 </li>
                                 <li class="slide <?php if( $controller == "\App\Controllers\DashboardController" ){ echo "is-expanded"; } ?>">
-                                    <a class="side-menu__item <?php if( $controller == "\App\Controllers\DashboardController" ){ echo "active"; } ?>" data-bs-toggle="slide" href="<?php echo base_url("dashboard"); ?>"><i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Dashboard</span></a>
+                                    <a class="side-menu__item <?php if( $controller == "\App\Controllers\DashboardController" && $method=="index" ){ echo "active"; } ?>" data-bs-toggle="slide" href="<?php echo base_url("dashboard"); ?>"><i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Dashboard</span></a>
                                 </li>
                                 <li class="slide <?php if( $controller == "\App\Controllers\UserController" ){ echo "is-expanded"; } ?>">
                                     <a class="side-menu__item <?php if( $controller == "\App\Controllers\UserController" ){ echo " active is-expanded"; } ?>" data-bs-toggle="slide" href="javascript:void(0);"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Member Info</span><i class="angle fa fa-angle-right"></i></a>
@@ -208,12 +208,12 @@
                                 <li class="slide">
                                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><i class="side-menu__icon fe fe-settings"></i><span class="side-menu__label">General Setting</span></a>
                                 </li>       
-                                <li class="slide">
-                                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">My Profile</span></a>
+                                <li class="slide <?php if( $controller == "\App\Controllers\DashboardController" && $method=="my_profile" ){ echo "is-expanded"; } ?>">
+                                    <a class="side-menu__item <?php if( $controller == "\App\Controllers\DashboardController" && $method=="my_profile" ){ echo "active"; } ?>" data-bs-toggle="slide" href="<?php echo base_url("my-profile"); ?>"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">My Profile</span></a>
                                 </li>
-                                <li class="slide">
+                                <!-- <li class="slide">
                                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><i class="side-menu__icon fe fe-lock"></i><span class="side-menu__label">Change Password</span></a>
-                                </li>                
+                                </li>                 -->
                                 <li class="slide">
                                     <a class="side-menu__item" data-bs-toggle="slide" href="<?php echo base_url("logout"); ?>"><i class="side-menu__icon fe fe-power"></i><span class="side-menu__label">Logout</span></a>
                                 </li>

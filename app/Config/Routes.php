@@ -22,6 +22,7 @@ $routes->get('/logout', 'DashboardController::logout');
 $routes->get('/forgot-password', 'LoginController::forgot_password');
 $routes->get('/reset-password', 'LoginController::reset_password');
 $routes->post('/reset-password', 'LoginController::do_reset_password');
+$routes->get('/my-profile', 'DashboardController::my_profile');
 
 // User Management
 $routes->group('user', function ($routes) {
