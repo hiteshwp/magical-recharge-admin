@@ -142,18 +142,30 @@ class ApiController extends ResourceController
                     );
                     if( $userModel->update($loginData["user_id"],$update_data) )
                     {
+                        $getUserData = $userModel->where("user_id", trim($loginData["user_id"]))
+                                                ->first();
                         $response = [
                             "status"    =>  true,
                             "message"   =>  "User login successfully",
                             "data"      =>  [
-                                "user_id"               => $loginData["user_id"],
-                                "user_full_name"        => $loginData["user_full_name"],
-                                "user_mobile_number"    => $loginData["user_mobile_number"],
-                                "user_referral_by"      => $loginData["user_referral_by"],
-                                "user_status"           => $loginData["user_status"],
+                                "user_id"               => $getUserData["user_id"],
+                                "user_full_name"        => $getUserData["user_full_name"],
+                                "user_mobile_number"    => $getUserData["user_mobile_number"],
+                                "user_referral_by"      => $getUserData["user_referral_by"],
+                                "user_status"           => $getUserData["user_status"],
+                                "user_bio"              => $getUserData["user_bio"],
                                 "token"                 => $token
                             ]
                         ];
+
+                        if( $getUserData["user_image"] != "" )
+                        {
+                            $response["data"]["user_image"] = base_url()."/profileimage/". $getUserData["user_image"];
+                        }
+                        else
+                        {
+                            $response["data"]["user_image"] = "";
+                        }
                     }
                 }
                 else
@@ -211,15 +223,17 @@ class ApiController extends ResourceController
 
                 if( $userModel->update($loginData["user_id"], $updated_data) )
                 {
+                    $getUserData = $userModel->where("user_id", trim($loginData["user_id"]))
+                                                ->first();
                     $response = [
                         "status"    =>  true,
                         "message"   =>  "Mobile number exist",
                         "data"      =>  [
-                            "user_id"               => $loginData["user_id"],
-                            "user_full_name"        => $loginData["user_full_name"],
-                            "user_mobile_number"    => $loginData["user_mobile_number"],
-                            "user_referral_by"      => $loginData["user_referral_by"],
-                            "user_status"           => $loginData["user_status"],
+                            "user_id"               => $getUserData["user_id"],
+                            "user_full_name"        => $getUserData["user_full_name"],
+                            "user_mobile_number"    => $getUserData["user_mobile_number"],
+                            "user_referral_by"      => $getUserData["user_referral_by"],
+                            "user_status"           => $getUserData["user_status"],
                         ]
                     ];
                 }
@@ -269,21 +283,24 @@ class ApiController extends ResourceController
             if( $loginData )
             {
                 $updated_data = array(
-                    "user_password"  =>  $encrypter->encrypt($this->request->getVar("new_password")),
-                    "user_status"   => "1"
+                    "user_password"     =>  $encrypter->encrypt($this->request->getVar("new_password")),
+                    "user_status"       => "1"
                 );
 
                 if( $userModel->update($loginData["user_id"], $updated_data) )
                 {
+                    $getUserData = $userModel->where("user_id", trim($loginData["user_id"]))
+                                            ->first();
+
                     $response = [
                         "status"    =>  true,
                         "message"   =>  "Password updated successfully",
                         "data"      =>  [
-                            "user_id"               => $loginData["user_id"],
-                            "user_full_name"        => $loginData["user_full_name"],
-                            "user_mobile_number"    => $loginData["user_mobile_number"],
-                            "user_referral_by"      => $loginData["user_referral_by"],
-                            "user_status"           => $loginData["user_status"],
+                            "user_id"               => $getUserData["user_id"],
+                            "user_full_name"        => $getUserData["user_full_name"],
+                            "user_mobile_number"    => $getUserData["user_mobile_number"],
+                            "user_referral_by"      => $getUserData["user_referral_by"],
+                            "user_status"           => $getUserData["user_status"],
                         ]
                     ];
                 }
@@ -370,9 +387,80 @@ class ApiController extends ResourceController
                             "user_full_name"        => $getUserData["user_full_name"],
                             "user_mobile_number"    => $getUserData["user_mobile_number"],
                             "user_referral_by"      => $getUserData["user_referral_by"],
-                            "user_image"            => base_url()."/profileimage/". $getUserData["user_image"],
                             "user_bio"              => $getUserData["user_bio"],
                             "user_status"           => $getUserData["user_status"],
+                        ]
+                    ];
+
+                    if( $getUserData["user_image"] != "" )
+                    {
+                        $response["data"]["user_image"] = base_url()."/profileimage/". $getUserData["user_image"];
+                    }
+                    else
+                    {
+                        $response["data"]["user_image"] = "";
+                    }
+                }
+                else
+                {
+                    $response = [
+                        "status"    =>  false,
+                        "message"   =>  "Invalid details",
+                    ];
+                }
+
+            }
+            else
+            {
+                $response = [
+                    "status"    =>  false,
+                    "message"   =>  "Invalid details",
+                ];
+            }
+        }
+
+        return $this->respondCreated( $response ); 
+    }
+
+    public function change_password()
+    {
+        $encrypter = \Config\Services::encrypter();
+        $rules = [
+            "user_id"       => "required",
+            "new_password"  => "required",
+        ];
+
+        if( ! $this->validate($rules) )
+        {
+            $response = [
+                "status"    =>  false,
+                "message"   =>  $this->validator->getErrors(),
+            ];
+        }
+        else
+        {
+            $userModel = new UserModel();
+            $loginData = $userModel->where("user_id", trim($this->request->getVar("user_id")))
+                                    ->where("user_status", "1")
+                                    ->first();
+            if( $loginData )
+            {
+                $updated_data = array(
+                    "user_password"  =>  $encrypter->encrypt($this->request->getVar("new_password")),
+                    "user_status"   => "1"
+                );
+
+                if( $userModel->update($loginData["user_id"], $updated_data) )
+                {
+                    $response = [
+                        "status"    =>  true,
+                        "message"   =>  "Password updated successfully",
+                        "data"      =>  [
+                            "user_id"               => $loginData["user_id"],
+                            "user_full_name"        => $loginData["user_full_name"],
+                            "user_mobile_number"    => $loginData["user_mobile_number"],
+                            "user_referral_by"      => $loginData["user_referral_by"],
+                            "user_status"           => $loginData["user_status"],
                         ]
                     ];
                 }
